@@ -1,3 +1,45 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+/* microposts */
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 700px;
+  }
+.posts {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #DDDDDD;
+  }
+  .user {
+    margin-top: 5em;
+    margin-left: 10px;
+    padding-top: 0;
+  }
+  .content {
+    display: block;
+    word-wrap:break-word;
+    margin-left: 60px;
+  }
+  .avatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+  .favarite {
+    margin-top: 5px;
+    margin-left: 60px;
+    padding-top: 0;
+  }
+
+}
+
+span.avatar {
+  margin-top: 10px;
+  input {
+    border: 0;
+  }
+}

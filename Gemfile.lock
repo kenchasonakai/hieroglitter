@@ -79,6 +79,8 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.10.0)
     ffi (1.14.2)
+    font-awesome-sass (5.15.1)
+      sassc (>= 1.11)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hpricot (0.8.6)
@@ -249,6 +251,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.2)
   capybara (>= 2.15)
+  font-awesome-sass
   html2slim
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
