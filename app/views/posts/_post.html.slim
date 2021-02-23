@@ -1,0 +1,7 @@
+= image_tag post.user.avatar, size: '30x20'
+span class="user"
+  = post.user.name
+span class="content"
+  = post.body
+span class="timestamp"
+  |Posted #{post.created_at}.

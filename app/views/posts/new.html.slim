@@ -1,0 +1,12 @@
+div.container.mx-auto style="background-color:#F5F5F5"
+  div.mb-3
+    = form_with model: @post, remote: true do |f|
+      .form-group.col style= "border:solid 1px #DDDDDD"
+        = f.label :𓃀𓍯𓂧𓇋
+        = f.text_area :body, class: 'form-control', placeholder: "日本語か英語で書いてね", style: "border:none"
+        .text-right
+          = f.submit '𓋴𓇋𓈖𓂧', class: 'btn btn-primary mt-2'
+  div.row
+    div.col-md-8
+      ol.microposts
+        = render @posts

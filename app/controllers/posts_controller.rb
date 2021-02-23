@@ -4,15 +4,15 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
   def create
-    user = User.first
+    user_id = (1..5).to_a.sample(1).join().to_i
+    user = User.find(user_id)
     @post = user.posts.build(post_params)
     @post.save
   end
 
   private
   def post_params
-    image = "image"
-    params.require(:post).permit(:body).merge(hieroglyphics: set_hieroglyphics(params[:post][:body], post_image: image))
+    params.require(:post).permit(:body).merge(hieroglyphics: set_hieroglyphics(body: params[:post][:body]))
   end
   def set_hieroglyphics(body: true)
     hash = { A: ["1313F"], B: ["130C0"] , C: ["133A1"], D: ["130A7"], E: ["131CB"],

@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_031009) do
 
   create_table "posts", force: :cascade do |t|
     t.string "body", null: false
-    t.string "post_image"
+    t.string "hieroglyphics", null: false
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_031009) do
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
+    t.string "avatar"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
