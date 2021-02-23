@@ -1,0 +1,16 @@
+div.container-fluid.mx-auto.pt-3 style="background-color:#F5F5F5"
+  div.mb-3
+    - flash.each do |message_type, message|
+      div class="alert alert-#{message_type}"
+        = message
+    = form_with model: @post, local: true do |f|
+      .form-group.col style= "border:solid 1px #DDDDDD"
+        = f.label :𓃀𓍯𓂧𓇋
+        = f.text_area :body, class: 'form-control', placeholder: "𓏤𓃭𓊃 𓅱𓂋𓇋𓏏𓇋 𓃀𓇋 𓄿𓃭𓏤𓎛𓄿𓃀𓇋𓏏 𓍯𓂋 𓆓𓄿𓏤𓄿𓈖𓇋𓋴𓇋", style: "border:none"
+        .text-right
+          = f.button :type => "submit", class: 'btn btn-primary mt-2', style: 'border-style: none;' do
+            i class="fas fa-people-carry"
+              |  𓋴𓇋𓈖𓂧
+  div.mb-3
+    ol.posts
+        = render @posts
