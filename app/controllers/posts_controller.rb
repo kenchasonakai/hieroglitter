@@ -23,8 +23,7 @@ class PostsController < ApplicationController
              P: ["133E4"], Q: ["133D8"], R: ["1308B"], S: ["132F4"], T: ["133CF"],
              U: ["13171"], V: ["13191"],W: ["13171"], X: ["133A1", "132F4"], Y: ["131CB"], Z: ["13283"] }
     result = []
-    text_body = body.is_japanese? ? body.to_kanhira : body
-    get_string = text_body.is_roman? ? text_body.upcase : text_body.to_roman.upcase
+    get_string = body.split("").map{ |s| s.is_roman? ? s.upcase : s.to_roman.upcase }.join()
     strings = get_string.split("")
     strings.each do |string|
       hash[string.to_sym] ? result.push(hash[string.to_sym].map{ |s| s.hex.chr(Encoding::UTF_8)}) : result.push(string)
