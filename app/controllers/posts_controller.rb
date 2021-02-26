@@ -7,7 +7,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @posts = Post.all.order(id: "DESC")
+    @posts = Post.includes([:user, :favorites]).order(id: "DESC").page(params[:page]).per(20)
   end
   def create
     @post = @current_user.posts.build(post_params)

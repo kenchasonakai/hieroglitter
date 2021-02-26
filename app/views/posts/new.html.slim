@@ -13,4 +13,7 @@ div.container-fluid.mx-auto.pt-3 style="background-color:#F5F5F5"
               |  𓋴𓇋𓈖𓂧
   div.mb-3
     ol.posts
+      div id='post-pagenate'
         = render @posts
+    = link_to_next_page @posts, '𓋴𓎛𓍯𓅱 𓅓𓍯𓂋𓇋', remote: true, class: 'more-link', id: 'more-link'
+script async src="https://platform.twitter.com/widgets.js" charset="utf-8"
