@@ -1,13 +1,16 @@
 class PostsController < ApplicationController
   require 'miyabi'
+  require "open-uri"
+  require "nokogiri"
+
+  YAHOO_API_ID = "dj00aiZpPXRsblBiR0pQSFNSVyZzPWNvbnN1bWVyc2VjcmV0Jng9ZWM-"
+
   def new
     @post = Post.new
     @posts = Post.all.order(id: "DESC")
   end
   def create
-    user_id = (1..5).to_a.sample(1).join().to_i
-    user = User.find(user_id)
-    @post = user.posts.build(post_params)
+    @post = @current_user.posts.build(post_params)
     @post.save ? flash[:success] = "𓋴𓅱𓎡𓎡𓇋𓋴𓋴" : flash[:danger] = "𓏤𓃭𓊃 𓅱𓂋𓇋𓏏𓇋 𓄿𓃭𓆑𓄿𓃀𓇋𓏏 𓍯𓂋 𓆓𓄿𓏤𓄿𓈖𓇋𓋴𓇋"
     redirect_to root_path
   end
@@ -23,6 +26,13 @@ class PostsController < ApplicationController
              P: ["133E4"], Q: ["133D8"], R: ["1308B"], S: ["132F4"], T: ["133CF"],
              U: ["13171"], V: ["13191"],W: ["13171"], X: ["133A1", "132F4"], Y: ["131CB"], Z: ["13283"] }
     result = []
+    if body.is_japanese?
+      enc_word = URI.encode(body)
+      url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid=#{YAHOO_API_ID}&sentence=#{enc_word}"
+      doc = Nokogiri::HTML(open(url))
+      hiragana = doc.xpath('//word/furigana').map{|i| i.text}.join rescue body
+      body = hiragana
+    end
     get_string = body.split("").map{ |s| s.is_roman? ? s.upcase : s.to_roman.upcase }.join()
     strings = get_string.split("")
     strings.each do |string|
