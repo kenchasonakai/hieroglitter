@@ -2,6 +2,8 @@ li id="micropost-#{post.id}"
   = image_tag post.user.avatar, size: '50x50'
   span class="user"
     = "@#{post.user.name}"
+    = link_to "https://twitter.com/share?url=#{ request.url }&text=#{ post.hieroglyphics }", class: 'btn btn-default text-right', target: '_blank' do
+      i.fab.fa-twitter style='color: #3399FF;'
   span.content
     = post.hieroglyphics
   span.favarite
