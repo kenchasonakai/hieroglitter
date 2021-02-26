@@ -5,6 +5,25 @@ html
     meta charset="utf-8"
     meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"
     link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet"
+    <!-- Primary Meta Tags -->
+    title
+      |ファラオのための掲示板
+    meta name="title" content="ファラオのための掲示板"
+    meta name="description" content="𓏤𓎛𓄿𓂋𓄿𓍯𓎛𓎡𓍯𓅓𓇋 𓍯𓈖"
+
+    <!-- Open Graph / Facebook -->
+    meta property="og:type" content="website"
+    meta property="og:url" content="https://metatags.io/"
+    meta property="og:title" content="ファラオのための掲示板"
+    meta property="og:description" content="𓏤𓎛𓄿𓂋𓄿𓍯𓎛𓎡𓍯𓅓𓇋 𓍯𓈖"
+    meta property="og:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"
+
+    <!-- Twitter -->
+    meta property="twitter:card" content="summary_large_image"
+    meta property="twitter:url" content="https://metatags.io/"
+    meta property="twitter:title" content="ファラオのための掲示板"
+    meta property="twitter:description" content="𓏤𓎛𓄿𓂋𓄿𓍯𓎛𓎡𓍯𓅓𓇋 𓍯𓈖"
+    meta property="twitter:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png"
     title
       | Hieroglitter
     = csrf_meta_tags
@@ -16,6 +35,15 @@ html
        nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
          div.navbar-brand
            |hieroglitter
+         - if @current_user
+           a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+             = image_tag @current_user.avatar, class: "rounded-circle navbar-toggler-icon"
+           div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right:0;left:auto;"
+             a class="dropdown-item" href="#"
+               = link_to user_session_path(@current_user), method: :delete do
+                 i class="fas fa-dungeon ml-3"
+                 span.ml-3
+                   |𓃭𓍯𓎼𓍯𓅱𓏏
     = yield
     script crossorigin="anonymous" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
