@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   require "open-uri"
   require "nokogiri"
 
-  YAHOO_API_ID = "dj00aiZpPXRsblBiR0pQSFNSVyZzPWNvbnN1bWVyc2VjcmV0Jng9ZWM-"
+  YAHOO_API_ID = Rails.application.credentials.yahoo[:api_id]
 
   def new
     @post = Post.new
