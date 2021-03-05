@@ -27,9 +27,9 @@ class PostsController < ApplicationController
              U: ["13171"], V: ["13191"],W: ["13171"], X: ["133A1", "132F4"], Y: ["131CB"], Z: ["13283"] }
     result = []
     if body.is_japanese?
-      enc_word = URI.encode(body)
+      enc_word = URI.encode_www_form_component(body)
       url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid=#{YAHOO_API_ID}&sentence=#{enc_word}"
-      doc = Nokogiri::HTML(open(url))
+      doc = Nokogiri::HTML(URI.open(url))
       hiragana = doc.xpath('//word/furigana').map{|i| i.text}.join rescue body
       body = hiragana
     end

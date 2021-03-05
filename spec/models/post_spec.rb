@@ -10,4 +10,14 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+  describe "異常系" do
+    context "bodyが空白の時" do
+      it "postの作成が失敗する" do
+        user = User.create(name: "𓎡𓃭𓇋𓍯𓏤𓄿𓏏𓂋𓄿", avatar: "/cleopatra.png")
+        post = Post.new(user_id: user.id, body: "")
+        post.valid?
+        expect(post.errors[:body]).to include("can't be blank")
+      end
+    end
+  end
 end

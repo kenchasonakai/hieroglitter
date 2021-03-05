@@ -93,4 +93,9 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  config.before(:suite) do
+    fixture_path = "#{Rails.root}/spec/initial_data"
+    SeedFu.seed(fixture_path)
+  end
+
 end
