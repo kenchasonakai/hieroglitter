@@ -15,6 +15,7 @@ gem 'slim-rails'
 gem 'font-awesome-sass'
 gem 'miyabi'
 gem 'kaminari'
+gem 'seed-fu'
 
 group :development, :test do
   gem 'pry-byebug'
