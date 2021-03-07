@@ -16,6 +16,7 @@ gem 'font-awesome-sass'
 gem 'miyabi'
 gem 'kaminari'
 gem 'seed-fu'
+gem 'pharaoh_lang', '~> 0.1.1'
 
 group :development, :test do
   gem 'pry-byebug'
