@@ -16,6 +16,7 @@ gem 'font-awesome-sass'
 gem 'miyabi'
 gem 'kaminari'
 gem 'seed-fu'
+gem 'pharaoh_lang', '~> 0.1.1'
 
 group :development, :test do
   gem 'pry-byebug'
@@ -29,6 +30,10 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'html2slim'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec'
 end
 
 group :test do
