@@ -3,7 +3,7 @@ on: [push]
 jobs:
   run:
     runs-on: ubuntu-latest
-    service:
+    services:
       postgres:
         image: postgres:13.2
         ports:
