@@ -4,20 +4,12 @@ jobs:
   run:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:10
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-        env:
-          POSTGRES_HOST_AUTH_METHOD: 'trust'
-    container:
-      image: ruby:2.6
-      env:
-        RAILS_ENV: test
-        DATABASE_HOST: postgres
-        REDIS_URL: redis://redis:6379/1
-
     steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
       - name: Bundle install
         run: bundle install
       - name: DB setup
