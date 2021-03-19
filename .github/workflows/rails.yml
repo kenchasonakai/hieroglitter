@@ -18,8 +18,11 @@ jobs:
         REDIS_URL: redis://redis:6379/1
 
     steps:
-      - name: Install Bundler
-        run: gem install bundler
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
       - name: Bundle install
         run: bundle install
       - name: DB setup
