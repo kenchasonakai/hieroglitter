@@ -22,13 +22,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile') }}
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gem-${{ env.cache-name }}-
             ${{ runner.os }}-gem-
             ${{ runner.os }}-
       - name: Install Bundler
-        run: gem install bundler --no-document -v $(grep "BUNDLED WITH" -1 Gemfile.lock | tail -n 1)
+        run: gem install bundler
       - name: Bundle install
         run: bundle install --path=vendor/bundle --jobs 4 --retry 3
       - name: DB setup
