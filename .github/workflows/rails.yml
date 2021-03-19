@@ -12,7 +12,5 @@ jobs:
           ruby-version: 2.7.2
       - name: Bundle install
         run: bundle install
-      - name: DB setup
-        run: bundle exec rails db:setup
       - name: Run rspec
         run: rails spec
