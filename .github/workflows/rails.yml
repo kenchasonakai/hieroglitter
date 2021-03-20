@@ -31,7 +31,9 @@ jobs:
         run: yarn install
       - name: Bundle install
         run: bundle install
-      - name: db migrate
-        run: bundle exec rails db:migrate
+      - name: Setup Database
+        run: |
+          cp config/database.yml.github-actions config/database.yml
+          bundle exec rails db:create db:schema:load
       - name: Run rspec
         run: rails spec
