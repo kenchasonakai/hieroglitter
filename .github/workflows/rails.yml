@@ -6,17 +6,17 @@ jobs:
     services:
       postgres:
         image: postgres:13.2
-        ports:
-          - 5432:5432
+        ports: ['5432:5432']
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: hieroglitter_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      redis:
+        image: redis
+        ports: ['6379:6379']
+        options: --entrypoint redis-server
 
     steps:
       - name: check out code
@@ -45,9 +45,17 @@ jobs:
         run: gem install bundler
       - name: bundle install
         run: bundle install --path vendor/bundle --jobs 4 --retry 3
-      - name: Setup Database
+      - name: Build
+        env:
+          DATABASE_URL: postgres:@localhost:5432/test
+          REDIS_URL: redis://localhost:6370/0
+          RAILS_ENV: test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
-          cp config/database.yml.github-actions config/database.yml
-          bundle exec rails db:create
+          sudo apt-get -yqq install libpq-dev
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rails db:prepare
+          bundle exec rails spec
       - name: Run rspec
         run: rails spec
