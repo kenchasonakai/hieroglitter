@@ -1,22 +1,23 @@
 name: RUN Rspec
 on: [push]
 jobs:
-  run:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:13.2
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: hieroglitter_test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+  test:
+    run:
+      runs-on: ubuntu-latest
+      services:
+        postgres:
+          image: postgres:13.2
+          ports:
+            - 5432:5432
+          env:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: hieroglitter_test
+          options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
 
     steps:
       - name: check out code
@@ -45,11 +46,9 @@ jobs:
         run: gem install bundler
       - name: bundle install
         run: bundle install --path vendor/bundle --jobs 4 --retry 3
-      - name: Postgres start
-        run: sudo service postgresql start
       - name: Setup Database
         run: |
           cp config/database.yml.github-actions config/database.yml
-          bundle exec rails db:create db:schema:load
+          bundle exec rails db:create
       - name: Run rspec
         run: rails spec
