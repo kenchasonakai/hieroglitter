@@ -28,12 +28,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 15.4.0
-      - name: yarn install
-        run: yarn install
-      - name: Bundle install
-        run: bundle install
-      - name: Setup Database
-        run: |
-          bundle exec rails db:setup
+      - name: chache Gemfile.lock
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+      - name: chache yarn.lock
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Run rspec
         run: rails spec
