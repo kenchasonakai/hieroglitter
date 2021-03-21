@@ -42,6 +42,7 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           sudo apt-get -yqq install libpq-dev
+          sudo service postgresql start
           gem install bundler
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
