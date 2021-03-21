@@ -5,18 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:13.2
+        image: postgres:11
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      redis:
-        image: redis
-        ports: ['6379:6379']
-        options: --entrypoint redis-server
-
     steps:
       - name: check out code
         uses: actions/checkout@v2
@@ -40,14 +35,9 @@ jobs:
           key: yarn-${{ hashFiles('**/yarn.lock') }}
       - name: yarn install
         run: yarn install
-      - name: gem install bundler
-        run: gem install bundler
-      - name: bundle install
-        run: bundle install --path vendor/bundle --jobs 4 --retry 3
       - name: Build
         env:
           DATABASE_URL: postgres:@localhost:5432/test
-          REDIS_URL: redis://localhost:6370/0
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
