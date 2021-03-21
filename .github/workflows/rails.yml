@@ -44,6 +44,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: gem install bundler
+        run: gem install bundler
       - name: Connect to PostgreSQL
         # PostgreSQLクライアントを作成し、クライアントにデータを展開し、
         # データを取り出すスクリプトを実行
@@ -54,7 +55,6 @@ jobs:
           POSTGRES_HOST: postgres
           # デフォルトのPostgreSQLポート
           POSTGRES_PORT: 5432
-        run: gem install bundler
       - name: bundle install
         run: bundle install --path vendor/bundle --jobs 4 --retry 3
       - name: Setup Database
