@@ -39,6 +39,12 @@ jobs:
         with:
           path: node_modules
           key: yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: yarn install
+        run: yarn install
+      - name: gem install bundler
+        run: gem install bundler
+      - name: bundle install
+        run: bundle install --path vendor/bundle --jobs 4 --retry 3
       - name: Setup Database
         run: |
           cp config/database.yml.github-actions config/database.yml
