@@ -11,6 +11,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hieroglitter_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -33,7 +34,7 @@ jobs:
         run: bundle install
       - name: Setup Database
         run: |
-          cp config/database.yml.github-actions config/database.yml
-          bundle exec rails db:create db:schema:load
+          bundle exec rails db:create
+          bundle exec rails db:migrate
       - name: Run rspec
         run: rails spec
