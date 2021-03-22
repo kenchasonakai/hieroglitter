@@ -48,6 +48,8 @@ jobs:
           exit
           sudo apt update -y
           sudo apt install -y google-chrome-stable
+      - name: yarn install
+        run: yarn install
       - name: Build
         run: |
           sudo apt-get -yqq install libpq-dev
