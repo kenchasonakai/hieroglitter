@@ -8,8 +8,7 @@ jobs:
         image: postgres:latest
         ports: ['5432:5432']
         env:
-          POSTGRES_USER: root
-          POSTGRES_ALLOW_EMPTY_PASSWORD: yes
+          POSTGRES_ROOT_PASSWORD: password
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
