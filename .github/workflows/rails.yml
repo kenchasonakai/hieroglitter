@@ -43,6 +43,7 @@ jobs:
       - name: install chorme
         run: |
           sudo curl -sS -L https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo -i
           echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
           sudo apt-get update -q -y
           sudo apt-get install -y google-chrome-stable
