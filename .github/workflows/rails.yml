@@ -8,8 +8,8 @@ jobs:
         image: postgres:latest
         ports: ['5432:5432']
         env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
+          POSTGRES_USER: root
+          POSTGRES_ALLOW_EMPTY_PASSWORD: yes
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -17,10 +17,6 @@ jobs:
           --health-retries 5
     env:
       RAILS_ENV: test
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_HOST: 127.0.0.1
-      POSTGRES_PORT: 5432
 
     steps:
       - name: check out code
