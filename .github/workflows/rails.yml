@@ -5,13 +5,20 @@ jobs:
     runs-on: ubuntu-latest
     services:
       db:
-        image: postgres:11@sha256:85d79cba2d4942dad7c99f84ec389a5b9cc84fb07a3dcd3aff0fb06948cdc03b
-        ports: ['5432:5432']
+        image: postgres:13.2
+        ports: - '5432:5432'
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+    env:
+      RAILS_ENV: test
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: 5432
+
     steps:
       - name: check out code
         uses: actions/checkout@v2
@@ -36,15 +43,11 @@ jobs:
       - name: yarn install
         run: yarn install
       - name: Build
-        env:
-          DATABASE_URL: postgres:@localhost:5432/test
-          RAILS_ENV: test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           sudo apt-get -yqq install libpq-dev
+          cp config/database.yml.github-actions config/database.yml
           gem install bundler
           bundle install --jobs 4 --retry 3
-          bundle exec rails db:prepare
-          bundle exec rails spec
+          bundle exec rails db:setup
       - name: Run rspec
         run: rails spec
