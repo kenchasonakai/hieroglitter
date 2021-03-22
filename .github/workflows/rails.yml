@@ -42,6 +42,7 @@ jobs:
           key: yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Install chrome
         run: |
+          sudo su -
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
           echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
           apt update -y
