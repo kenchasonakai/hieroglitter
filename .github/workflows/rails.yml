@@ -5,11 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     services:
       db:
-        image: postgres:11@sha256:85d79cba2d4942dad7c99f84ec389a5b9cc84fb07a3dcd3aff0fb06948cdc03b
+        image: postgres:latest
         ports: ['5432:5432']
         env:
-          POSTGRES_USER: root
-          POSTGRES_ALLOW_EMPTY_PASSWORD: yes
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -17,6 +17,10 @@ jobs:
           --health-retries 5
     env:
       RAILS_ENV: test
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: 5432
 
     steps:
       - name: check out code
@@ -39,6 +43,12 @@ jobs:
         with:
           path: node_modules
           key: yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install chrome
+        run: |
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+          echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
+          apt update -y
+          apt install -y google-chrome-stable
       - name: yarn install
         run: yarn install
       - name: Build
