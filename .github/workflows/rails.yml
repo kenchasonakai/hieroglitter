@@ -41,10 +41,11 @@ jobs:
           key: yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Install chrome
         run: |
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+          sudo su
+          sudo wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
           echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
-          apt update -y
-          apt install -y google-chrome-stable
+          sudo apt update -y
+          sudo apt install -y google-chrome-stable
       - name: yarn install
         run: yarn install
       - name: Build
