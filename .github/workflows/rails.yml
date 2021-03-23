@@ -60,5 +60,4 @@ jobs:
           gem install bundler
           bundle install --path vendor/bundle --jobs 4
           bundle exec rails db:setup
-      - name: RSpec
-        run: bundle exec rails spec
+          rails -v

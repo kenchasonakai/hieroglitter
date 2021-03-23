@@ -98,9 +98,3 @@ RSpec.configure do |config|
     SeedFu.seed(fixture_path)
   end
 end
-
-driven_by :selenium, using: :headless_chrome do |driver_options|
-  driver_options.add_argument('--disable-dev-sim-usage')
-  driver_options.add_argument('--no-sandbox')
-end
-
