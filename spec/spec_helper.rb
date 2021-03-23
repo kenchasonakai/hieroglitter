@@ -97,9 +97,10 @@ RSpec.configure do |config|
     fixture_path = "#{Rails.root}/spec/initial_data"
     SeedFu.seed(fixture_path)
   end
-  driven_by :selenium, using: :headless_chrome do |driver_options|
-    driver_options.add_argument('--disable-dev-sim-usage')
-    driver_options.add_argument('--no-sandbox')
-  end
-
 end
+
+driven_by :selenium, using: :headless_chrome do |driver_options|
+  driver_options.add_argument('--disable-dev-sim-usage')
+  driver_options.add_argument('--no-sandbox')
+end
+
