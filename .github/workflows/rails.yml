@@ -58,5 +58,7 @@ jobs:
           sudo apt-get -yqq install libpq-dev
           cp config/database.yml.github-actions config/database.yml
           gem install bundler
-          bundle install --path vendor/bundle
+          bundle install --path vendor/bundle --jobs 4
           bundle exec rails db:setup
+      - name: RSpec
+        run: bundle exec rails spec
