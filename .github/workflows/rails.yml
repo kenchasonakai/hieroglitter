@@ -48,10 +48,10 @@ jobs:
       - uses: nanasess/setup-chromedriver@master
         with:
           chromedriver-version: '88.0.4324.96'
-      - run: |
-        export DISPLAY=:99
-        chromedriver --url-base=/wd/hub &
-        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+        run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       - name: Build
         run: |
           sudo apt-get -yqq install libpq-dev
