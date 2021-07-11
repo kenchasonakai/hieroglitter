@@ -17,6 +17,7 @@ gem 'miyabi'
 gem 'kaminari'
 gem 'seed-fu'
 gem 'pharaoh_lang', '~> 0.1.1'
+gem 'webrick'
 
 group :development, :test do
   gem 'pry-byebug'
