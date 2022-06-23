@@ -1,5 +1,5 @@
 class UserSessionsController < ApplicationController
-  skip_before_action :require_login, %i[new create]
+  skip_before_action :require_login, only: %i[new create]
   def new
     redirect_to root_path if logged_in?
   end
