@@ -1,5 +1,5 @@
 class UserSessionsController < ApplicationController
-  skip_before_action :require_login
+  skip_before_action :require_login, %i[new create]
   def new
     redirect_to root_path if logged_in?
   end
@@ -10,7 +10,7 @@ class UserSessionsController < ApplicationController
     redirect_to root_path
   end
   def destroy
-    logout if logged_in?
+    logout
     redirect_to root_path
   end
 end
