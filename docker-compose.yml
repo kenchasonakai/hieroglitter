@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      TZ: Asia/Tokyo
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      PGPASSWORD: password
+      TZ: "Asia/Tokyo"
+    volumes:
+      - postgresql_data:/var/lib/postgresql
+    ports:
+      - 5432:5432
+  web:
+    build: .
+    command: bin/rails s -p 3000 -b '0.0.0.0'
+    #pryとかに必要
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/hieroglitter
+      - bundle_data:/usr/local/bundle:cached
+      - node_modules:/hieroglitter/node_modules
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+volumes:
+  postgresql_data:
+  bundle_data:
+  node_modules:
