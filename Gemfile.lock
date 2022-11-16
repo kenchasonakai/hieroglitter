@@ -139,7 +139,7 @@ GEM
       rake
     mini_magick (4.11.0)
     mini_mime (1.0.2)
-    mini_portile2 (2.5.0)
+    mini_portile2 (2.8.0)
     minitest (5.14.4)
     miyabi (0.1.1)
       mechanize (= 2.7.5)
@@ -147,10 +147,10 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (2.9.4)
     nio4r (2.5.7)
-    nokogiri (1.11.1)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.13.9)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    nokogiri (1.11.1-x86_64-darwin)
+    nokogiri (1.13.9-x86_64-darwin)
       racc (~> 1.4)
     ntlm-http (0.1.1)
     parallel (1.20.1)
@@ -167,7 +167,7 @@ GEM
     public_suffix (4.0.6)
     puma (4.3.7)
       nio4r (~> 2.0)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-proxy (0.6.5)
       rack
@@ -352,7 +352,7 @@ DEPENDENCIES
   webpacker (~> 4.0)
 
 RUBY VERSION
-   ruby 2.7.2p137
+   ruby 2.7.6p219
 
 BUNDLED WITH
-   2.2.11
+   2.3.25
