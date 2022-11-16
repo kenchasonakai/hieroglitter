@@ -27,8 +27,7 @@ FROM builder AS bundle
 
 # Install gems
 COPY Gemfile Gemfile.lock .
-RUN bundle install \
-      && rm -rf $BUNDLE_PATH/ruby/$RUBY_VERSION/cache/*
+RUN bundle install
 
 # == npm
 FROM builder AS npm
