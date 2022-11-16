@@ -18,6 +18,7 @@ RUN apk update && apk add --no-cache --update \
       postgresql-dev \
       tzdata \
       git \
+      nodejs \
       yarn \
       shared-mime-info
 
