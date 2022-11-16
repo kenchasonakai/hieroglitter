@@ -7,7 +7,7 @@ ENV BUNDLE_DEPLOYMENT true
 ENV BUNDLE_PATH vendor/bundle
 ENV BUNDLE_WITHOUT development:test
 
-RUN gem install bundler --no-document --version 2.3.25
+RUN gem install bundler
 
 # == builder
 FROM base AS builder
