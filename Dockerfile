@@ -34,8 +34,8 @@ FROM builder AS npm
 
 # Install npm packages
 COPY package.json yarn.lock .
-RUN yarn install --production --frozen-lockfile \
-      && yarn cache clean
+RUN yarn install --production --frozen-lockfile
+RUN yarn cache clean
 
 # == assets
 FROM builder AS assets
