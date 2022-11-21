@@ -15,10 +15,8 @@ FROM base AS builder
 # Add packages
 RUN apk update && apk add --no-cache --update \
       build-base \
-      postgresql-dev \
       tzdata \
-      git \
-      nodejs \
+      nodejs~=16 \
       yarn \
       shared-mime-info
 
@@ -47,17 +45,16 @@ COPY --from=npm /app/node_modules node_modules
 
 # Set a dummy value to avoid errors when building docker image.
 # refs: https://github.com/rails/rails/issues/32947
-RUN SECRET_KEY_BASE=dummy bin/rails assets:precompile \
+RUN SECRET_KEY_BASE=a5374b3b2510648627597e59ef9f6961 bin/rails assets:precompile \
       && rm -rf tmp/cache/*
+
 
 # == main
 FROM base AS main
 
 # Add packages
 RUN apk update && apk add --no-cache --update \
-      postgresql-dev \
       tzdata \
-      nodejs \
       shared-mime-info
 
 COPY . .
@@ -70,4 +67,4 @@ COPY --from=assets /app/public/packs public/packs
 ENV PORT 3000
 EXPOSE 3000
 
-CMD bin/rails server --port $PORT
+CMD bin/rails server
