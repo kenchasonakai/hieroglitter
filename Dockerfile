@@ -4,7 +4,6 @@ FROM ruby:2.7.6-alpine AS base
 WORKDIR /app
 ENV RAILS_ENV production
 ENV BUNDLE_DEPLOYMENT true
-ENV BUNDLE_PATH vendor/bundle
 ENV BUNDLE_WITHOUT development:test
 
 RUN gem install bundler
@@ -40,7 +39,6 @@ FROM builder AS assets
 
 COPY . .
 
-COPY --from=bundle /app/vendor/bundle /app/vendor/bundle
 COPY --from=npm /app/node_modules node_modules
 
 # Set a dummy value to avoid errors when building docker image.
@@ -60,7 +58,6 @@ RUN apk update && apk add --no-cache --update \
 COPY . .
 
 # Copy files from each stages
-COPY --from=bundle /app/vendor/bundle /app/vendor/bundle
 COPY --from=assets /app/public/assets public/assets
 COPY --from=assets /app/public/packs public/packs
 
