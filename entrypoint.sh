@@ -2,6 +2,7 @@
 set -e
 
 bin/webpack
+bin/rails assets:precompile
 bin/rails db:migrate
 
 # Remove a potentially pre-existing server.pid for Rails.
