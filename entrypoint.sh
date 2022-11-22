@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+bin/rails assets:precompile
 bin/rails db:migrate
 
 # Remove a potentially pre-existing server.pid for Rails.
