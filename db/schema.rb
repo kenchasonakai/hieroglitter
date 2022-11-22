@@ -12,12 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_02_23_145918) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "favorites", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "post_id"
+    t.integer "user_id"
+    t.integer "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_favorites_on_post_id"
@@ -27,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_145918) do
   create_table "posts", force: :cascade do |t|
     t.string "body", null: false
     t.string "hieroglyphics", null: false
-    t.bigint "user_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
