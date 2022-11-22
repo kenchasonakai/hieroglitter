@@ -1,33 +1,46 @@
-FROM ruby:2.7.6
+#applicationのディレクトリ名で置き換えてください
+ARG APP_NAME=hieroglitter
+#使いたいrubyのimage名に置き換えてください
+ARG RUBY_IMAGE=ruby:2.7.6
+#使いたいnodeのversionに置き換えてください
+ARG NODE_VERSION='16'
+#インストールするbundlerのversionに置き換えてください
+ARG BUNDLER_VERSION=2.3.17
+
+FROM $RUBY_IMAGE
+ARG APP_NAME
+ARG RUBY_VERSION
+ARG NODE_VERSION
+ARG BUNDLER_VERSION
 
 ENV RAILS_ENV production
 ENV BUNDLE_DEPLOYMENT true
 ENV BUNDLE_WITHOUT development:test
 
-WORKDIR /hieroglitter
+RUN mkdir /$APP_NAME
+WORKDIR /$APP_NAME
 
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
 && wget --quiet -O - /tmp/pubkey.gpg https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
 && apt-get update -qq \
 && apt-get install -y build-essential nodejs yarn
 
-RUN gem install bundler
+RUN gem install bundler:$BUNDLER_VERSION
 
-COPY Gemfile /hieroglitter/Gemfile
-COPY Gemfile.lock /hieroglitter/Gemfile.lock
+COPY Gemfile /$APP_NAME/Gemfile
+COPY Gemfile.lock /$APP_NAME/Gemfile.lock
 
 RUN bundle install
 
-COPY package.json yarn.lock .
+COPY yarn.lock /$APP_NAME/yarn.lock
+COPY package.json /$APP_NAME/package.json
 RUN yarn install --production --frozen-lockfile
 RUN yarn cache clean
 
-COPY . /hieroglitter
+COPY . /$APP_NAME
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
-
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
