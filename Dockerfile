@@ -1,9 +1,10 @@
 FROM ruby:2.7.6
 
-WORKDIR /hieroglitter
 ENV RAILS_ENV production
 ENV BUNDLE_DEPLOYMENT true
 ENV BUNDLE_WITHOUT development:test
+
+WORKDIR /hieroglitter
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
 && wget --quiet -O - /tmp/pubkey.gpg https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -13,8 +14,8 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
 
 RUN gem install bundler
 
-COPY Gemfile hieroglitter/Gemfile
-COPY Gemfile.lock hieroglitter/Gemfile.lock
+COPY Gemfile /hieroglitter/Gemfile
+COPY Gemfile.lock /hieroglitter/Gemfile.lock
 
 RUN bundle install
 
