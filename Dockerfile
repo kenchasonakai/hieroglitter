@@ -13,7 +13,9 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
 
 RUN gem install bundler
 
-COPY Gemfile Gemfile.lock .
+COPY Gemfile hieroglitter/Gemfile
+COPY Gemfile.lock hieroglitter/Gemfile.lock
+
 RUN bundle install
 
 COPY package.json yarn.lock .
@@ -22,8 +24,11 @@ RUN yarn cache clean
 
 COPY . /hieroglitter
 
-RUN SECRET_KEY_BASE=a5374b3b2510648627597e59ef9f6961 bin/rails assets:precompile
+RUN rails assets:precompile
 
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
