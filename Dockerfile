@@ -36,8 +36,11 @@ RUN bundle install
 
 COPY yarn.lock /$APP_NAME/yarn.lock
 COPY package.json /$APP_NAME/package.json
-RUN yarn install --production --frozen-lockfile
-RUN yarn cache clean
+
+RUN SECRET_KEY_BASE=$RAILS_MASTER_KEY bundle exec rails assets:precompile assets:clean && \
+  yarn install --production --frozen-lockfile \
+  yarn cache clean && \
+  rm -rf node_modules tmp/cache
 
 COPY . /$APP_NAME
 
